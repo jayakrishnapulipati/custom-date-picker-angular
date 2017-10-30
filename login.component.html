@@ -1,0 +1,60 @@
+
+<div class="date-select" role="application">
+  <div class="date-input" id="dateSelect"
+       tn-enter="calFocus = true;isActive = !isActive;showCurrentDate(date)"
+       (click)="calFocus = true;isActive = !isActive;showCurrentDate(date)"
+       ng-blur="onOffClick_event();calFocus = false;"
+       tn-off-click="clicked()"
+        tabindex="0">
+    <input class="input-box" tabindex="-1"
+           [(ngModel)]="date"
+           required="isDateRequired" readonly/>
+    <i class="icon-icon_calendar tn-date-selector-calendar-icon"></i>
+  </div>
+
+  <div class="popup-menu tn-date-selector-popup tn-date-selector-menu" id="tn_calendar"
+        *ngIf="isActive" >
+    <div class="menu" tn-off-click="onOffClick_event();"
+         >
+      <div class="caret"></div>
+
+      <div class="tn-date-selector">
+        <div class="tn-datepicker-title">Date</div>
+        <div class="tn-datepicker-calender">
+          <div class="tn-datepicker-nav">
+            <button type="button" class="tn-datepicker-nav-button" (click)="prev()"
+
+                    name="previous" id="prev">
+            </button>
+            <span class="month-label">{{month.format("MMMM YYYY")}}</span>
+            <button type="button" class="tn-datepicker-nav-button"
+                    (click)="next()" name="next" id="nxt"
+            >
+            </button>
+          </div>
+
+          <div class="tn-datepicker-row" >
+						<span class="tn-datepicker-col text-center"
+                  *ngFor="let dayLabel of daysInWeek">
+							<span class="tn-datepicker-day-label" title="{{dayLabel.title}}">{{dayLabel.day}}</span>
+						</span>
+          </div>
+
+          <div class="tn-datepicker-row" *ngFor="let week of weeks"
+               >
+						<span class="tn-datepicker-col" *ngFor="let day of week.days">
+							<div tabindex="-1"
+                   class="tn-datepicker-day"
+                   (click)="onDayClick(day);"
+                   [ngClass]="getDayCls(day,datesOfInterest)">
+								<button type="button"><span>{{day.number}}</span></button>
+							</div>
+						</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
